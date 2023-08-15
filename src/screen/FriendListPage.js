@@ -28,7 +28,13 @@ function FriendListPage() {
   return (
     <div>
       <h1 className="title">{`${friendList.length}명의 실버락이 있어요`}</h1>
-      <FriendList friendList={friendList} />
+      {friendList.map((friendList) => {
+        return (
+          <>
+            <FriendList friendList={friendList} />
+          </>
+        );
+      })}
       <MatchingTab />
       <Tab />
     </div>

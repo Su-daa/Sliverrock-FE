@@ -1,35 +1,42 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Carousel from "react-material-ui-carousel";
 import Profile from "../components/Profile";
 import "../styles/HomePage.css";
 import Tab from "../components/Tab";
+import { useDispatch, useSelector } from "react-redux";
+import { setNearUserList } from "../app/store";
+import axiosInstance from "../app/axios";
 
 function HomePage() {
-  //친구 신청 버튼 클릭시 해당 친구에게 친구 신청 여부를 보내줘야 함
-  //function request() {}
+  const nearUserList = useSelector((state) => state.nearUserList);
+  const dispatch = useDispatch();
 
-  //react material ui carousel 이용해서 옆으로 넘기기
-  /*
-  let nearUsers = useSelector((state) => state.nearUsers);
+  useEffect(() => {
+    // 백엔드에서 근처 친구 목록을 가져오는 비동기 함수
+    const fetchNearUserList = async () => {
+      try {
+        const response = await axiosInstance.get("user/near");
+        dispatch(setNearUserList(response.data));
+      } catch (error) {
+        console.log(error);
+      }
+    };
 
-  {nearUsers.map((user, i) => {
-          return (
-            <>
-              <div className="profile-box">
-                <Profile userIdx={i} nearUser={user} />
-              </div>
-            </>
-          );
-        })}
-   */
-  let item = <Profile />;
-  var items = [item, item, item];
+    fetchNearUserList();
+  }, [dispatch]);
+
+  console.log(nearUserList);
+
   return (
     <>
       <h1 className="title">추천 친구</h1>
       <Carousel>
-        {items.map((it) => {
-          return it;
+        {nearUserList.map((user) => {
+          return (
+            <>
+              <Profile user={user} />
+            </>
+          );
         })}
       </Carousel>
       <div className="btn-container">

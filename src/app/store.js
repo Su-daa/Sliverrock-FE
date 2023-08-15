@@ -1,11 +1,27 @@
 import { createSlice, configureStore } from "@reduxjs/toolkit";
+import clubImgTennis from "../styles/club_tennis.jpg";
+import clubImgBadminton from "../styles/club_badminton.jpg";
+import clubImgMT from "../styles/club.jpg";
 
 //근처 친구 목록(홈페이지)
-let nearUserInfo = createSlice({
-  name: "nearUserInfo",
-  initialState: {},
+let nearUserList = createSlice({
+  name: "nearUserList",
+  initialState: [
+    {
+      gender: "여성",
+      nickname: "성원",
+      birth: "2000",
+      region: "서울시 강서구",
+      introduce: "성원 만세",
+      getS3Res: {
+        imgUrl:
+          "https://lsw-s3-bucket.s3.ap-northeast-2.amazonaws.com/9ebafa89-528d-4f9d-b45f-ef3b44183a6f.png",
+        fileName: "9ebafa89-528d-4f9d-b45f-ef3b44183a6f.png",
+      },
+    },
+  ],
   reducers: {
-    setNearUserInfo: (state, action) => {
+    setNearUserList: (state, action) => {
       const { gender, nickname, birth, region, introduce, getS3Res } =
         action.payload;
       state.gender = gender;
@@ -116,14 +132,45 @@ let friendList = createSlice({
   },
 });
 
-export const { setNearUserInfo } = nearUserInfo.actions;
+//club page
+let club = createSlice({
+  name: "club",
+  initialState: [
+    {
+      name: "산악 동호회",
+      img: clubImgMT,
+    },
+
+    {
+      name: "배드민턴 동호회",
+      img: clubImgBadminton,
+    },
+
+    {
+      name: "테니스 동호회",
+      img: clubImgTennis,
+    },
+  ],
+  reducers: {
+    setClub: (state, action) => {
+      const { name, img } = action.payload;
+      // state.name = name;
+      // state.img = img;
+      state.push({ name, img });
+    },
+  },
+});
+
+export const { setNearUserList } = nearUserList.actions;
 export const { setFriendRequestList } = friendRequestList.actions;
 export const { setFriendList } = friendList.actions;
+export const { setClub } = club.actions;
 
 export default configureStore({
   reducer: {
-    nearUserInfo: nearUserInfo.reducer,
+    nearUserList: nearUserList.reducer,
     friendRequestList: friendRequestList.reducer,
     friendList: friendList.reducer,
+    club: club.reducer,
   },
 });
