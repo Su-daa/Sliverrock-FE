@@ -4,8 +4,8 @@ import Profile from "../components/Profile";
 import "../styles/HomePage.css";
 import Tab from "../components/Tab";
 import { useDispatch, useSelector } from "react-redux";
-import axios from "axios";
 import { setNearUserList } from "../app/store";
+import axiosInstance from "../app/axios";
 
 function HomePage() {
   const nearUserList = useSelector((state) => state.nearUserList);
@@ -15,7 +15,7 @@ function HomePage() {
     // 백엔드에서 근처 친구 목록을 가져오는 비동기 함수
     const fetchNearUserList = async () => {
       try {
-        const response = await axios.get("user/near");
+        const response = await axiosInstance.get("user/near");
         dispatch(setNearUserList(response.data));
       } catch (error) {
         console.log(error);
@@ -24,6 +24,8 @@ function HomePage() {
 
     fetchNearUserList();
   }, [dispatch]);
+
+  console.log(nearUserList);
 
   return (
     <>

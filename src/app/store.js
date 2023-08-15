@@ -6,7 +6,20 @@ import clubImgMT from "../styles/club.jpg";
 //근처 친구 목록(홈페이지)
 let nearUserList = createSlice({
   name: "nearUserList",
-  initialState: {},
+  initialState: [
+    {
+      gender: "여성",
+      nickname: "성원",
+      birth: "2000",
+      region: "서울시 강서구",
+      introduce: "성원 만세",
+      getS3Res: {
+        imgUrl:
+          "https://lsw-s3-bucket.s3.ap-northeast-2.amazonaws.com/9ebafa89-528d-4f9d-b45f-ef3b44183a6f.png",
+        fileName: "9ebafa89-528d-4f9d-b45f-ef3b44183a6f.png",
+      },
+    },
+  ],
   reducers: {
     setNearUserList: (state, action) => {
       const { gender, nickname, birth, region, introduce, getS3Res } =
