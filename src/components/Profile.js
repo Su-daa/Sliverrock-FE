@@ -2,12 +2,12 @@ import "../styles/Profile.css";
 import profileImg from "../styles/profile.jpg";
 
 function Profile(user) {
-  const imgUrl = user.getS3Res.imgUrl;
+  // const imgUrl = user.getS3Res.imgUrl;
   return (
     <div className="box-container">
       <div className="profile-box">
         <div className="profile-img-box">
-          <img className="profile-img" src={imgUrl} alt="profile-img"></img>
+          <img className="profile-img" src={profileImg} alt="profile-img"></img>
         </div>
         <div className="profile-info">
           <h4 className="profile-info-text">

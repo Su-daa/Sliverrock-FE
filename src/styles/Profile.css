@@ -1,5 +1,6 @@
 .box-container {
   margin-top: 60px;
+  height: fit-content;
 }
 .profile-img-box {
   display: flex;
