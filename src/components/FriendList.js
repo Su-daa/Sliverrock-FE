@@ -21,9 +21,8 @@ function FriendList(props) {
         />
         <div>
           <h3 className="container">
-            <h2 className="container">{props.nickname}</h2>
-            {props.birth}&nbsp;
-            {props.gender}
+            <h2 className="container">{props.friendList.nickname}</h2>
+            {props.friendList.birth}&nbsp; ({props.friendList.gender})
           </h3>
           <button className="callButton" onClick={handleCallButtonClick}>
             <div className="iconImg">
