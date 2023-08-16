@@ -1,0 +1,35 @@
+.image-container {
+  position: relative;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.friendListImg {
+  width: 85%; /* 이미지의 가로 크기를 200픽셀로 조정합니다. */
+  height: 300px; /* 세로 크기는 가로에 비례하여 자동으로 조정됩니다. */
+  border-radius: 5cqmin;
+  object-fit: cover;
+  margin-bottom: 7px;
+}
+
+.container {
+  display: inline;
+  margin: 10px;
+}
+
+.callButton {
+  padding: 0% 3% 0% 3%;
+  margin-right: 40px;
+  border-radius: 1cqmin;
+  background-color: rgb(52, 214, 52);
+  border: none;
+}
+
+.iconImg {
+  padding-bottom: 5px;
+  color: white;
+}
+
+.nameText {
+  margin-top: 10px;
+}

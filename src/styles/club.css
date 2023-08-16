@@ -1,0 +1,64 @@
+.image-container {
+  position: relative;
+  display: inline-block;
+}
+
+.clubImg {
+  width: 95%; /* 이미지의 가로 크기를 200픽셀로 조정합니다. */
+  height: 500px; /* 세로 크기는 가로에 비례하여 자동으로 조정됩니다. */
+  border-radius: 5cqmin;
+}
+
+.text-overlay {
+  position: absolute;
+  top: -3%;
+  left: 5%;
+  padding: 10px;
+  margin-top: 15px;
+  color: white;
+  font-size: xx-large;
+}
+
+button {
+  outline: none;
+}
+.custom-btn {
+  width: 150px;
+  height: 60px;
+  padding: 10px 25px;
+  margin: 10px;
+  border: 2px solid #000;
+  border-radius: 5px;
+  font-weight: 600;
+  font-size: x-large;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  display: inline-block;
+}
+.btn-11 {
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+.btn-11:hover {
+  background: #000;
+  color: #fff;
+}
+.btn-11:before {
+  position: absolute;
+  content: "";
+  display: inline-block;
+  top: -180px;
+  left: 0;
+  width: 30px;
+  height: 100%;
+  background-color: #fff;
+  animation: shiny-btn1 3s ease-in-out infinite;
+}
+.btn-11:active {
+  box-shadow: 4px 4px 6px 0 rgba(255, 255, 255, 0.3),
+    -4px -4px 6px 0 rgba(116, 125, 136, 0.2),
+    inset -4px -4px 6px 0 rgba(255, 255, 255, 0.2),
+    inset 4px 4px 6px 0 rgba(0, 0, 0, 0.2);
+}

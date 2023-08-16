@@ -1,0 +1,9 @@
+@font-face {
+  font-family: "SUITE-Regular";
+  src: url("../src/styles/SUITE-Variable.ttf");
+  font-weight: 600;
+  font-style: normal;
+}
+body {
+  font-family: "SUITE-Regular";
+}
