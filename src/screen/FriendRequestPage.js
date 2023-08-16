@@ -7,16 +7,19 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "../app/axios";
 import { setFriendRequestList } from "../app/store";
 import Carousel from "react-material-ui-carousel";
+import axiosInstance from "../app/axios";
 
 function FriendRequestPage() {
   let friendRequestList = useSelector((state) => state.friendRequestList);
+  let matchingId = useSelector((state) => state.matchingSlice);
   const dispatch = useDispatch();
 
   useEffect(() => {
     // 백엔드에서 매칭 친구 목록을 가져오는 비동기 함수
     const fetchFriendRequestList = async () => {
       try {
-        const response = await axios.get("/matching");
+        //헤더 추가해야함
+        const response = await axiosInstance.get("/matching");
         dispatch(setFriendRequestList(response.data));
       } catch (error) {
         console.log(error);
@@ -25,7 +28,34 @@ function FriendRequestPage() {
 
     fetchFriendRequestList();
   }, [dispatch]);
-  //수락, 거절 onclick함수 작성해야함
+
+  // 매칭 수락 버튼 함수
+  const matchingAccept = async () => {
+    try {
+      // 매칭 아이디를 이용하여 요청 보내기
+      //헤더 추가해야함
+      const response = await axiosInstance.post(
+        `/matching/accept/${matchingId}`
+      );
+      console.log("매칭 수락 결과:", response.data);
+    } catch (error) {
+      console.error("매칭 수락 실패:", error);
+    }
+  };
+
+  // 매칭 거절 버튼 함수
+  const matchingReject = async () => {
+    try {
+      // 매칭 아이디를 이용하여 요청 보내기
+      //헤더 추가해야함
+      const response = await axiosInstance.post(
+        `/matching/reject/${matchingId}`
+      );
+      console.log("매칭 거절 결과:", response.data);
+    } catch (error) {
+      console.error("매칭 거절 실패:", error);
+    }
+  };
 
   return (
     <>
@@ -43,8 +73,12 @@ function FriendRequestPage() {
       </div>
 
       <div className="btn-container">
-        <button className="custom-btn btn-11">수락</button>
-        <button className="custom-btn btn-11">거절</button>
+        <button className="custom-btn btn-11" onClick={matchingAccept}>
+          수락
+        </button>
+        <button className="custom-btn btn-11" onClick={matchingReject}>
+          거절
+        </button>
       </div>
       <MatchingTab />
       <Tab />
