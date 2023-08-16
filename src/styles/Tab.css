@@ -1,0 +1,30 @@
+.nav {
+  padding-bottom: 10px;
+  background-color: white;
+}
+.nav-item {
+  border-top: 1px solid black;
+  padding-top: 10px;
+}
+.nav-item:hover {
+  border-top: 3px solid black;
+  padding-top: 8px;
+}
+.navlink {
+  color: black;
+  font-weight: 600;
+  font-size: 20px;
+  padding: 0;
+}
+.navlink:hover {
+  color: gray;
+  font-weight: 700;
+}
+.navlink.active {
+  color: gray;
+  font-weight: 700;
+}
+.matching-tab {
+  padding-bottom: 9px;
+  margin-bottom: 50px;
+}
