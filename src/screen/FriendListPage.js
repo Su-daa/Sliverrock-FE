@@ -15,6 +15,7 @@ function FriendListPage() {
     // 백엔드에서 근처 친구 목록을 가져오는 비동기 함수
     const fetchFriendList = async () => {
       try {
+        //헤더 추가해야함
         const response = await axios.get("/matching/friend");
         dispatch(setFriendList(response.data));
       } catch (error) {
