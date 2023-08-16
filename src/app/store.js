@@ -161,10 +161,21 @@ let club = createSlice({
   },
 });
 
+const matchingSlice = createSlice({
+  name: "matching",
+  initialState: null,
+  reducers: {
+    setMatchingId: (state, action) => {
+      return action.payload;
+    },
+  },
+});
+
 export const { setNearUserList } = nearUserList.actions;
 export const { setFriendRequestList } = friendRequestList.actions;
 export const { setFriendList } = friendList.actions;
 export const { setClub } = club.actions;
+export const { setMatchingId } = matchingSlice.actions;
 
 export default configureStore({
   reducer: {
@@ -172,5 +183,6 @@ export default configureStore({
     friendRequestList: friendRequestList.reducer,
     friendList: friendList.reducer,
     club: club.reducer,
+    matchingSlice: matchingSlice.reducer,
   },
 });
