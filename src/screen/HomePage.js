@@ -5,14 +5,14 @@ import "../styles/HomePage.css";
 import Tab from "../components/Tab";
 import { useDispatch, useSelector } from "react-redux";
 import { setNearUserList, setMatchingId } from "../app/store";
-import axios from 'axios';
+import axios from "axios";
 
 //import axiosInstance from "../app/axios";
 
 function HomePage() {
   const dispatch = useDispatch();
 
-  let loginData = useSelector((state)=>state.loginData);
+  let loginData = useSelector((state) => state.loginData);
   let nearUserList = useSelector((state) => state.nearUserList);
   //로컬에서 친구신청 버튼 클릭시 응답 상태 저장
   //딱히 필요 없을수도?
@@ -26,10 +26,11 @@ function HomePage() {
     // 백엔드에서 근처 친구 목록을 가져오는 비동기 함수
     const fetchNearUserList = async () => {
       try {
-        const response = await axios.get("/user/near",{
+        const response = await axios.get("/user/near", {
           headers: {
-            Authorization : 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjQsImV4cCI6MTY5MjE5MDUxMn0.w3EilPPqHCSkZoUHev5Qrx5yonmtGfiZ3fGIZL8-0MI',
-          }
+            Authorization:
+              "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjQsImV4cCI6MTY5MjM0MDI3MH0.Fi5LzkOfW3S1A8719qYRiDSoPw6KqmZDSZxCATXyyq0",
+          },
         });
         let fetchedList = response.data;
         console.log(JSON.stringify(fetchedList, null, 2));
@@ -43,8 +44,6 @@ function HomePage() {
   }, [dispatch]);
 
   console.log(nearUserList);
-  
-  
 
   // const handleFriendRequest = async () => {
   //   try {
