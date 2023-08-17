@@ -1,11 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import "../styles/friendList.css";
-import friendListImg from "../styles/friendList.jpg";
 import { BsTelephoneFill } from "react-icons/bs";
 
 function FriendList(props) {
+  const [showModal, setShowModal] = useState(false);
+
   const handleCallButtonClick = () => {
-    alert("전화걸기");
+    console.log("모달 뜬다");
+    setShowModal(true);
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
   };
 
   console.log(props);
@@ -22,14 +28,22 @@ function FriendList(props) {
           <h3 className="container">
             <h2 className="container">{props.friend.nickname}</h2>
             {props.friend.birth}&nbsp; ({props.friend.gender})
+            <button className="callButton" onClick={handleCallButtonClick}>
+              <div className="iconImg">
+                <BsTelephoneFill />
+              </div>
+            </button>
           </h3>
-          <button className="callButton" onClick={handleCallButtonClick}>
-            <div className="iconImg">
-              <BsTelephoneFill />
-            </div>
-          </button>
         </div>
       </div>
+      {showModal && (
+        <div className="modal">
+          <div className="modal-content">
+            <p>전화번호: {props.friend.phoneNum}</p>
+            <button onClick={closeModal}>닫기</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
