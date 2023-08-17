@@ -14,10 +14,11 @@ function App() {
         <Route path="/Main/:id" element={<MainPage />} />
         <Route path="/Home" element={<HomePage />} />
         <Route path="/ClubPage" element={<ClubPage />} />
+        <Route path="/FriendListPage" element={<FriendListPage />} />
         <Route path="/FriendRequestPage" element={<FriendRequestPage />} />
 
         {/* <Route path="/MyPage" element={<MyPage />} />
-        <Route path="/FriendListPage" element={<FriendListPage />} /> */}
+         */}
       </Routes>
     </>
   );
