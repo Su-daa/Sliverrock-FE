@@ -10,7 +10,6 @@ import axios from "axios";
 
 function FriendRequestPage() {
   let friendRequestList = useSelector((state) => state.friendRequestList);
-  let matchingId = useSelector((state) => state.matchingSlice);
   const [isAccepting, setIsAccepting] = useState(false); //버튼 중복 클릭 금지
   const [isRejecting, setIsRejecting] = useState(false);
   const [acceptSuccess, setAcceptSuccess] = useState(false); //버튼 요청 성공시 상태 변경
@@ -24,7 +23,7 @@ function FriendRequestPage() {
         const response = await axios.get("/matching", {
           headers: {
             Authorization:
-              "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjQsImV4cCI6MTY5MjM0MDI3MH0.Fi5LzkOfW3S1A8719qYRiDSoPw6KqmZDSZxCATXyyq0",
+              "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjQsImV4cCI6MTY5MjM3MDUwMH0.htSah0331mHe3HGfR2_bocxQYLa3HhnysMeMUMeFzD0",
           },
         });
         let fetchedList = response.data;
@@ -39,37 +38,43 @@ function FriendRequestPage() {
   }, [dispatch]);
 
   // 매칭 수락 버튼 함수
-  const matchingAccept = async () => {
+  const matchingAccept = async (matchingId) => {
     try {
       setIsAccepting(true);
-      const response = await axios.post(`/matching/accept/${matchingId}`, {
-        headers: {
-          Authorization:
-            "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjQsImV4cCI6MTY5MjM0MDI3MH0.Fi5LzkOfW3S1A8719qYRiDSoPw6KqmZDSZxCATXyyq0",
-        },
-      });
+      const response = await axios.post(
+        `/matching/accept/${matchingId}`,
+        null,
+        {
+          headers: {
+            Authorization:
+              "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjQsImV4cCI6MTY5MjM3MDUwMH0.htSah0331mHe3HGfR2_bocxQYLa3HhnysMeMUMeFzD0",
+          },
+        }
+      );
       console.log("매칭 수락 결과:", response.data);
       setAcceptSuccess(true); //수락 요청 성공
+      setRejectSuccess(true);
     } catch (error) {
-      console.error("매칭 수락 실패:", error);
       console.log(matchingId);
+      console.error("매칭 수락 실패:", error);
     } finally {
       setIsAccepting(false); // 실패시 수락 버튼 활성화
     }
   };
 
   // 매칭 거절 버튼 함수
-  const matchingReject = async () => {
+  const matchingReject = async (matchingId) => {
     try {
       setIsRejecting(true);
-      const response = await axios.post(`/matching/reject/${matchingId}`, {
+      const response = await axios.delete(`/matching/reject/${matchingId}`, {
         headers: {
           Authorization:
-            "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjQsImV4cCI6MTY5MjM0MDI3MH0.Fi5LzkOfW3S1A8719qYRiDSoPw6KqmZDSZxCATXyyq0",
+            "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjQsImV4cCI6MTY5MjM3MDUwMH0.htSah0331mHe3HGfR2_bocxQYLa3HhnysMeMUMeFzD0",
         },
       });
       console.log("매칭 거절 결과:", response.data);
       setRejectSuccess(true);
+      setAcceptSuccess(true);
     } catch (error) {
       console.error("매칭 거절 실패:", error);
     } finally {
@@ -85,29 +90,31 @@ function FriendRequestPage() {
           {friendRequestList.map((user) => {
             return (
               <>
-                <Profile user={user} />
+                <div key={user.matchingId}>
+                  <Profile user={user} />
+                  <div className="btn-container">
+                    <button
+                      className="custom-btn btn-11"
+                      onClick={() => matchingAccept(user.matchingId)}
+                      disabled={isAccepting || acceptSuccess}
+                    >
+                      수락
+                    </button>
+                    <button
+                      className="custom-btn btn-11"
+                      onClick={() => matchingReject(user.matchingId)}
+                      disabled={isRejecting || rejectSuccess}
+                    >
+                      거절
+                    </button>
+                  </div>
+                </div>
               </>
             );
           })}
         </Carousel>
       </div>
 
-      <div className="btn-container">
-        <button
-          className="custom-btn btn-11"
-          onClick={matchingAccept}
-          disabled={isAccepting || acceptSuccess}
-        >
-          수락
-        </button>
-        <button
-          className="custom-btn btn-11"
-          onClick={matchingReject}
-          disabled={isRejecting || rejectSuccess}
-        >
-          거절
-        </button>
-      </div>
       <MatchingTab />
       <Tab />
     </>
