@@ -1,6 +1,5 @@
 import React from "react";
 import "../styles/club.css";
-// import clubImg from "../styles/club.jpg";
 
 const Club = ({ club }) => {
   return (
