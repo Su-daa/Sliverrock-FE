@@ -9,7 +9,6 @@ function FriendList(props) {
   };
 
   console.log(props);
-  // let imgUrl = props.getS3Res.imgUrl;
 
   return (
     <div>

@@ -1,35 +1,26 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Carousel from "react-material-ui-carousel";
 import Profile from "../components/Profile";
 import "../styles/HomePage.css";
 import Tab from "../components/Tab";
 import { useDispatch, useSelector } from "react-redux";
-import { setNearUserList, setMatchingId } from "../app/store";
-import axios from 'axios';
-
-//import axiosInstance from "../app/axios";
+import { setNearUserList } from "../app/store";
+import axios from "axios";
 
 function HomePage() {
   const dispatch = useDispatch();
 
-  let loginData = useSelector((state)=>state.loginData);
   let nearUserList = useSelector((state) => state.nearUserList);
-  //로컬에서 친구신청 버튼 클릭시 응답 상태 저장
-  //딱히 필요 없을수도?
-  const [requestId, setRequestId] = useState(null);
-
-  //요청 발신자 고유번호 가져와야함
-  //로그인시 받아올 수 있음
-  let userId;
 
   useEffect(() => {
     // 백엔드에서 근처 친구 목록을 가져오는 비동기 함수
     const fetchNearUserList = async () => {
       try {
-        const response = await axios.get("/user/near",{
+        const response = await axios.get("/user/near", {
           headers: {
-            Authorization : 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjQsImV4cCI6MTY5MjE5MDUxMn0.w3EilPPqHCSkZoUHev5Qrx5yonmtGfiZ3fGIZL8-0MI',
-          }
+            Authorization:
+              "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjQsImV4cCI6MTY5MjM3MDUwMH0.htSah0331mHe3HGfR2_bocxQYLa3HhnysMeMUMeFzD0",
+          },
         });
         let fetchedList = response.data;
         console.log(JSON.stringify(fetchedList, null, 2));
@@ -43,29 +34,22 @@ function HomePage() {
   }, [dispatch]);
 
   console.log(nearUserList);
-  
-  
 
-  // const handleFriendRequest = async () => {
-  //   try {
-  //     // 친구신청 로직...
-  //     //요청 발신자 번호를 줘야 함
-  //     //헤더 추가해야함
-  //     const response = await axiosInstance.post(`/matching/${userId}`);
-
-  //     // response에서 매칭 아이디 추출
-  //     const matchingId = response.data.result;
-
-  //     // Redux store에 매칭 아이디 저장
-  //     dispatch(setMatchingId(matchingId));
-
-  //     // 로컬 state에도 매칭 아이디 저장
-  //     //딱히 필요없을수도...?
-  //     setRequestId(matchingId);
-  //   } catch (error) {
-  //     console.error("친구 신청 실패:", error);
-  //   }
-  // };
+  const handleFriendRequest = async (userId) => {
+    try {
+      // 친구신청 로직...
+      const response = await axios.post(`/matching/${userId}`, null, {
+        headers: {
+          Authorization:
+            "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjQsImV4cCI6MTY5MjM3MDUwMH0.htSah0331mHe3HGfR2_bocxQYLa3HhnysMeMUMeFzD0",
+        },
+      });
+      console.log(response.data);
+    } catch (error) {
+      console.log(userId);
+      console.error("친구 신청 실패:", error);
+    }
+  };
 
   return (
     <>
@@ -75,15 +59,19 @@ function HomePage() {
           return (
             <>
               <Profile user={user} />
+              <div className="btn-container">
+                <button
+                  className="custom-btn btn-11"
+                  onClick={() => handleFriendRequest(user.id)}
+                >
+                  친구신청
+                </button>
+              </div>
             </>
           );
         })}
       </Carousel>
-      <div className="btn-container">
-        {/* <button className="custom-btn btn-11" onClick={handleFriendRequest}>
-          친구신청
-        </button> */}
-      </div>
+
       <Tab />
     </>
   );

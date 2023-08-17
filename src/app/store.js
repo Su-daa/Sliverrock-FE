@@ -8,9 +8,9 @@ let loginData = createSlice({
   initialState: [
     {
       accessToken:
-        "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjQsImV4cCI6MTY5MjE3Njg1N30.2bqf4Nv_hn5QABGIg2tPmVc1SPj8V9rdae8uCuzX8bc",
+        "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjQsImV4cCI6MTY5MjM0MDI3MH0.Fi5LzkOfW3S1A8719qYRiDSoPw6KqmZDSZxCATXyyq0",
       refreshToken:
-        "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjQsImV4cCI6MTY5MjI1OTY1N30.NGGRyHwQJl82m1JPkBJot1rGZYrIew_bTqDe7iSjZJo",
+        "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjQsImV4cCI6MTY5MjM0MDI3MH0.Fi5LzkOfW3S1A8719qYRiDSoPw6KqmZDSZxCATXyyq0",
       userId: "4",
     },
   ],
@@ -52,39 +52,13 @@ let friendRequestList = createSlice({
 //친구 목록
 let friendList = createSlice({
   name: "friendList",
-  initialState: [
-    {
-      nickname: "지원",
-      birth: "1955",
-      gender: "여성",
-      introduce: "산책 갈사람",
-      getS3Re: {
-        imgUrl:
-          "https://lsw-s3-bucket.s3.ap-northeast-2.amazonaws.com/9ebafa89-528d-4f9d-b45f-ef3b44183a6f.png",
-        fileName: "9ebafa89-528d-4f9d-b45f-ef3b44183a6f.png",
-      },
-    },
-
-    {
-      nickname: "근육맨",
-      birth: "1960",
-      gender: "남성",
-      introduce: "3대 500임",
-      getS3Res: {
-        imgUrl:
-          "https://lsw-s3-bucket.s3.ap-northeast-2.amazonaws.com/9ebafa89-528d-4f9d-b45f-ef3b44183a6f.png",
-        fileName: "9ebafa89-528d-4f9d-b45f-ef3b44183a6f.png",
-      },
-    },
-  ],
+  initialState: [],
   reducers: {
     setFriendList: (state, action) => {
-      const { nickname, birth, gender, introduce, getS3Res } = action.payload;
-      state.nickname = nickname;
-      state.birth = birth;
-      state.gender = gender;
-      state.introduce = introduce;
-      state.getS3Res = getS3Res;
+      let now = action.payload;
+      state = now;
+      // return action.payload;
+      return state; // 새로운 배열을 생성하여 대체하도록 수정
     },
   },
 });
@@ -111,19 +85,7 @@ let club = createSlice({
   reducers: {
     setClub: (state, action) => {
       const { name, img } = action.payload;
-      // state.name = name;
-      // state.img = img;
       state.push({ name, img });
-    },
-  },
-});
-
-const matchingSlice = createSlice({
-  name: "matching",
-  initialState: null,
-  reducers: {
-    setMatchingId: (state, action) => {
-      return action.payload;
     },
   },
 });
@@ -133,7 +95,6 @@ export let { setNearUserList } = nearUserList.actions;
 export const { setFriendRequestList } = friendRequestList.actions;
 export const { setFriendList } = friendList.actions;
 export const { setClub } = club.actions;
-export const { setMatchingId } = matchingSlice.actions;
 
 export default configureStore({
   reducer: {
@@ -141,7 +102,6 @@ export default configureStore({
     friendRequestList: friendRequestList.reducer,
     friendList: friendList.reducer,
     club: club.reducer,
-    matchingSlice: matchingSlice.reducer,
     loginData: loginData.reducer,
   },
 });
