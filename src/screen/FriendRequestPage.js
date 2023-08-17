@@ -10,10 +10,7 @@ import axios from "axios";
 
 function FriendRequestPage() {
   let friendRequestList = useSelector((state) => state.friendRequestList);
-  const [isAccepting, setIsAccepting] = useState(false); //버튼 중복 클릭 금지
-  const [isRejecting, setIsRejecting] = useState(false);
-  const [acceptSuccess, setAcceptSuccess] = useState(false); //버튼 요청 성공시 상태 변경
-  const [rejectSuccess, setRejectSuccess] = useState(false);
+  const [activePageIndex, setActivePageIndex] = useState(0); // 현재 페이지 인덱스
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -40,7 +37,6 @@ function FriendRequestPage() {
   // 매칭 수락 버튼 함수
   const matchingAccept = async (matchingId) => {
     try {
-      setIsAccepting(true);
       const response = await axios.post(
         `/matching/accept/${matchingId}`,
         null,
@@ -52,20 +48,21 @@ function FriendRequestPage() {
         }
       );
       console.log("매칭 수락 결과:", response.data);
-      setAcceptSuccess(true); //수락 요청 성공
-      setRejectSuccess(true);
+      // 수락 버튼을 눌렀을 때 해당 carousel 아이템을 제거
+      const updatedFriendRequestList = friendRequestList.filter(
+        (user) => user.matchingId !== matchingId
+      );
+      dispatch(setFriendRequestList(updatedFriendRequestList));
+      setActivePageIndex(activePageIndex + 1);
     } catch (error) {
       console.log(matchingId);
       console.error("매칭 수락 실패:", error);
-    } finally {
-      setIsAccepting(false); // 실패시 수락 버튼 활성화
     }
   };
 
   // 매칭 거절 버튼 함수
   const matchingReject = async (matchingId) => {
     try {
-      setIsRejecting(true);
       const response = await axios.delete(`/matching/reject/${matchingId}`, {
         headers: {
           Authorization:
@@ -73,20 +70,27 @@ function FriendRequestPage() {
         },
       });
       console.log("매칭 거절 결과:", response.data);
-      setRejectSuccess(true);
-      setAcceptSuccess(true);
+      // 수락 버튼을 눌렀을 때 해당 carousel 아이템을 제거
+      const updatedFriendRequestList = friendRequestList.filter(
+        (user) => user.matchingId !== matchingId
+      );
+      dispatch(setFriendRequestList(updatedFriendRequestList));
+      setActivePageIndex(activePageIndex + 1);
     } catch (error) {
       console.error("매칭 거절 실패:", error);
-    } finally {
-      setIsRejecting(false); //실패시 거절 버튼 다시 활성화
     }
+  };
+
+  const handleCarouselChange = (newPageIndex) => {
+    // Carousel 페이지 전환 시 호출되는 함수
+    setActivePageIndex(newPageIndex);
   };
 
   return (
     <>
       <h1 className="title">{`${friendRequestList.length}명의 실버락이 있어요`}</h1>
       <div className="profile-box">
-        <Carousel>
+        <Carousel onChange={(newIndex) => handleCarouselChange(newIndex)}>
           {friendRequestList.map((user) => {
             return (
               <>
@@ -96,14 +100,12 @@ function FriendRequestPage() {
                     <button
                       className="custom-btn btn-11"
                       onClick={() => matchingAccept(user.matchingId)}
-                      disabled={isAccepting || acceptSuccess}
                     >
                       수락
                     </button>
                     <button
                       className="custom-btn btn-11"
                       onClick={() => matchingReject(user.matchingId)}
-                      disabled={isRejecting || rejectSuccess}
                     >
                       거절
                     </button>

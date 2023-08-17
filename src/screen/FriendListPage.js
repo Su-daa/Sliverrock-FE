@@ -37,14 +37,16 @@ function FriendListPage() {
   console.log(friendListData);
 
   return (
-    <div>
-      <h1 className="title">{`${friendListData.length}명의 실버락이 있어요`}</h1>
-      {friendListData.map((friend) => (
-        <FriendList key={friend.id} friend={friend} />
-      ))}
+    <>
+      <div className="list-container">
+        <h1 className="title">{`${friendListData.length}명의 실버락이 있어요`}</h1>
+        {friendListData.map((friend) => (
+          <FriendList key={friend.id} friend={friend} />
+        ))}
+      </div>
       <MatchingTab />
       <Tab />
-    </div>
+    </>
   );
 }
 

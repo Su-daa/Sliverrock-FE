@@ -1,5 +1,5 @@
 .box-container {
-  margin-top: 50px;
+  margin-top: 20px;
 }
 .profile-img-box {
   display: flex;
@@ -14,7 +14,6 @@
 .profile-info {
   margin-left: 40px;
   margin-bottom: 10px;
-  padding-bottom: 20px;
 }
 .profile-info-text {
   margin-bottom: 15px;
