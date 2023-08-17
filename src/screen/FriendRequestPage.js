@@ -24,7 +24,7 @@ function FriendRequestPage() {
         const response = await axios.get("/matching", {
           headers: {
             Authorization:
-              "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjQsImV4cCI6MTY5MjE5ODgwNH0.j2NLTZsAtKQwqYfoBFcDKqvfEOmdWA-qWk5WU-ashcU",
+              "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjQsImV4cCI6MTY5MjM0MDI3MH0.Fi5LzkOfW3S1A8719qYRiDSoPw6KqmZDSZxCATXyyq0",
           },
         });
         let fetchedList = response.data;
@@ -45,7 +45,7 @@ function FriendRequestPage() {
       const response = await axios.post(`/matching/accept/${matchingId}`, {
         headers: {
           Authorization:
-            "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjQsImV4cCI6MTY5MjE5ODgwNH0.j2NLTZsAtKQwqYfoBFcDKqvfEOmdWA-qWk5WU-ashcU",
+            "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjQsImV4cCI6MTY5MjM0MDI3MH0.Fi5LzkOfW3S1A8719qYRiDSoPw6KqmZDSZxCATXyyq0",
         },
       });
       console.log("매칭 수락 결과:", response.data);
@@ -65,7 +65,7 @@ function FriendRequestPage() {
       const response = await axios.post(`/matching/reject/${matchingId}`, {
         headers: {
           Authorization:
-            "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjQsImV4cCI6MTY5MjE5ODgwNH0.j2NLTZsAtKQwqYfoBFcDKqvfEOmdWA-qWk5WU-ashcU",
+            "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjQsImV4cCI6MTY5MjM0MDI3MH0.Fi5LzkOfW3S1A8719qYRiDSoPw6KqmZDSZxCATXyyq0",
         },
       });
       console.log("매칭 거절 결과:", response.data);
