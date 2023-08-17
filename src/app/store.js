@@ -3,17 +3,30 @@ import clubImgTennis from "../styles/club_tennis.jpg";
 import clubImgBadminton from "../styles/club_badminton.jpg";
 import clubImgMT from "../styles/club.jpg";
 
+//로그인 시 제공받는 데이터
 let loginData = createSlice({
   name: "loginData",
-  initialState: [
+  initialState: 
     {
-      accessToken: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjQsImV4cCI6MTY5MjE3Njg1N30.2bqf4Nv_hn5QABGIg2tPmVc1SPj8V9rdae8uCuzX8bc",
+      accessToken: " eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjQsImV4cCI6MTY5MjM0MDI3MH0.Fi5LzkOfW3S1A8719qYRiDSoPw6KqmZDSZxCATXyyq0",
       refreshToken: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjQsImV4cCI6MTY5MjI1OTY1N30.NGGRyHwQJl82m1JPkBJot1rGZYrIew_bTqDe7iSjZJo",
       userId: "4"
     }
-  ],
+  ,
   reducers: {
     setLoginData: (state, action) => {
+      let now = action.payload;
+      state = now;
+      return (state);
+    }
+  }
+})
+
+let myInfo = createSlice({
+  name: "myInfo",
+  initialState:{},
+  reducers: {
+    setMyInfo: (state, action) => {
       let now = action.payload;
       state = now;
       return (state);
@@ -24,20 +37,7 @@ let loginData = createSlice({
 //근처 친구 목록(홈페이지)
 let nearUserList = createSlice({
   name: "nearUserList",
-  initialState: [
-    // {
-    //   gender: "여성",
-    //   nickname: "성원",
-    //   birth: "2000",
-    //   region: "서울시 강서구",
-    //   introduce: "성원 만세",
-    //   getS3Res: {
-    //     imgUrl:
-    //       "https://lsw-s3-bucket.s3.ap-northeast-2.amazonaws.com/9ebafa89-528d-4f9d-b45f-ef3b44183a6f.png",
-    //     fileName: "9ebafa89-528d-4f9d-b45f-ef3b44183a6f.png",
-    //   },
-    // },
-  ],
+  initialState: [''],
   reducers: {
     setNearUserList: (state, action) => {
       let now = action.payload;
@@ -184,8 +184,11 @@ const matchingSlice = createSlice({
   },
 });
 
+
+
 export let { setLoginData } = loginData.actions;
 export let { setNearUserList } = nearUserList.actions;
+export let { setMyInfo} = myInfo.actions;
 export const { setFriendRequestList } = friendRequestList.actions;
 export const { setFriendList } = friendList.actions;
 export const { setClub } = club.actions;
@@ -199,6 +202,7 @@ export default configureStore({
     club: club.reducer,
     matchingSlice: matchingSlice.reducer,
     loginData: loginData.reducer,
+    myInfo: myInfo.reducer,
   },
 });
 

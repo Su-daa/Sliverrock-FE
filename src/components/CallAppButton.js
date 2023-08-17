@@ -11,7 +11,7 @@ function CallAppButton() {
 }
 
 function openFlutterApp() {
-    return(window.location.href = "flutterapp://open-home-page")
+    return(window.location.href = "flutterapp://open-edit-page")
 }
 
 export default CallAppButton;

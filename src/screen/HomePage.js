@@ -14,13 +14,11 @@ function HomePage() {
 
   let loginData = useSelector((state)=>state.loginData);
   let nearUserList = useSelector((state) => state.nearUserList);
-  //로컬에서 친구신청 버튼 클릭시 응답 상태 저장
-  //딱히 필요 없을수도?
-  const [requestId, setRequestId] = useState(null);
 
-  //요청 발신자 고유번호 가져와야함
-  //로그인시 받아올 수 있음
-  let userId;
+  const [selectedProfile, setSelectedProfile] = useState(null); // 선택된 프로필 정보 상태 추가
+  const handleProfileSelect = (user) => {
+    setSelectedProfile(user);
+  };
 
   useEffect(() => {
     // 백엔드에서 근처 친구 목록을 가져오는 비동기 함수
@@ -28,7 +26,7 @@ function HomePage() {
       try {
         const response = await axios.get("/user/near",{
           headers: {
-            Authorization : 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjQsImV4cCI6MTY5MjE5MDUxMn0.w3EilPPqHCSkZoUHev5Qrx5yonmtGfiZ3fGIZL8-0MI',
+            Authorization : loginData.accessToken,
           }
         });
         let fetchedList = response.data;
@@ -38,7 +36,6 @@ function HomePage() {
         console.log(error);
       }
     };
-
     fetchNearUserList();
   }, [dispatch]);
 
@@ -46,26 +43,25 @@ function HomePage() {
   
   
 
-  // const handleFriendRequest = async () => {
-  //   try {
-  //     // 친구신청 로직...
-  //     //요청 발신자 번호를 줘야 함
-  //     //헤더 추가해야함
-  //     const response = await axiosInstance.post(`/matching/${userId}`);
+  const handleFriendRequest = async () => {
+    try {
+      const response = await axios.post("/matching/4/",{
+        headers: {
+          Authorization : loginData.accessToken,
+        }
+      });
 
-  //     // response에서 매칭 아이디 추출
-  //     const matchingId = response.data.result;
+      let fetchedData = response.data;
+      console.log(JSON.stringify(fetchedData, null, 2));
 
-  //     // Redux store에 매칭 아이디 저장
-  //     dispatch(setMatchingId(matchingId));
+      let matchingId = fetchedData.result;
+      // Redux store에 매칭 아이디 저장
+      dispatch(setMatchingId(matchingId));
 
-  //     // 로컬 state에도 매칭 아이디 저장
-  //     //딱히 필요없을수도...?
-  //     setRequestId(matchingId);
-  //   } catch (error) {
-  //     console.error("친구 신청 실패:", error);
-  //   }
-  // };
+    } catch (error) {
+      console.error("친구 신청 실패:", error);
+    }
+  };
 
   return (
     <>
@@ -74,15 +70,19 @@ function HomePage() {
         {nearUserList.map((user) => {
           return (
             <>
-              <Profile user={user} />
+              <Profile
+              key={user.id}
+              user={user} />
             </>
           );
         })}
       </Carousel>
       <div className="btn-container">
-        {/* <button className="custom-btn btn-11" onClick={handleFriendRequest}>
-          친구신청
-        </button> */}
+        <button className="custom-btn btn-11" onClick={handleFriendRequest}>
+          {selectedProfile
+            ? `친구신청: ${selectedProfile.nickname}` // 선택된 프로필 정보로 버튼 텍스트 업데이트
+            : "친구신청"}
+        </button>
       </div>
       <Tab />
     </>

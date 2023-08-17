@@ -7,16 +7,17 @@ import FriendListPage from "./screen/FriendListPage";
 import ClubPage from "./screen/ClubPage";
 import MainPage from "./screen/Main";
 
+
 function App() {
   return (
     <>
       <Routes>
         <Route path="/Main/:id" element={<MainPage/>} />
         <Route path="/Home" element={<HomePage />} />
-        {/* <Route path="/MyPage" element={<MyPage />} />
+        <Route path="/MyPage" element={<MyPage />} />
         <Route path="/ClubPage" element={<ClubPage />} />
         <Route path="/FriendRequestPage" element={<FriendRequestPage />} />
-        <Route path="/FriendListPage" element={<FriendListPage />} /> */}
+        <Route path="/FriendListPage" element={<FriendListPage />} />
       </Routes>
     </>
   );
