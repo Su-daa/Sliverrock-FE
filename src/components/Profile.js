@@ -1,8 +1,12 @@
 import "../styles/Profile.css";
-import profileImg from "../styles/profile.jpg";
+
 
 function Profile(props) {
-  // const imgUrl = user.getS3Res.imgUrl;
+  if (!props.user || !props.user.getS3Res) {
+    // 유저 정보나 이미지 정보가 없을 경우 아무 내용도 렌더링하지 않음
+    return null;
+  }
+  
   return (
     <div className="box-container">
       <div className="profile-box">
