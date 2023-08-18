@@ -11,6 +11,7 @@ import NoFriends from "../components/NoFriends.js";
 function HomePage() {
   const dispatch = useDispatch();
 
+  let loginData = useSelector((state) => state.loginData);
   let nearUserList = useSelector((state) => state.nearUserList);
   let friendRequestedUserId = useSelector(
     (state) => state.friendRequestedUserId
@@ -22,8 +23,9 @@ function HomePage() {
       try {
         const response = await axios.get("/user/near", {
           headers: {
+            // Authorization: loginData.accessToken,
             Authorization:
-              "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjQsImV4cCI6MTY5MjM3MDUwMH0.htSah0331mHe3HGfR2_bocxQYLa3HhnysMeMUMeFzD0",
+              "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjQsImV4cCI6MTY5MjM4NTQ2Mn0.MoOaZhSAZc10NsexbRgRJuzhp08b0xnuh-nFY-hajXo",
           },
         });
         let fetchedList = response.data;
@@ -33,7 +35,6 @@ function HomePage() {
         console.log(error);
       }
     };
-
     fetchNearUserList();
   }, [dispatch]);
 
@@ -45,7 +46,7 @@ function HomePage() {
       const response = await axios.post(`/matching/${userId}`, null, {
         headers: {
           Authorization:
-            "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjQsImV4cCI6MTY5MjM3MDUwMH0.htSah0331mHe3HGfR2_bocxQYLa3HhnysMeMUMeFzD0",
+            "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjQsImV4cCI6MTY5MjM4NTQ2Mn0.MoOaZhSAZc10NsexbRgRJuzhp08b0xnuh-nFY-hajXo",
         },
       });
       //친구신청 userId 업데이트
@@ -90,7 +91,6 @@ function HomePage() {
             );
           })}
         </Carousel>
-
         <Tab />
       </>
     );

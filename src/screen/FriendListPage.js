@@ -8,7 +8,6 @@ import axios from "axios";
 import { setFriendList } from "../app/store";
 import NoFriends from "../components/NoFriends.js";
 
-
 function FriendListPage() {
   const friendListData = useSelector((state) => state.friendList);
   const dispatch = useDispatch();
@@ -21,7 +20,7 @@ function FriendListPage() {
         const response = await axios.get("/matching/friend", {
           headers: {
             Authorization:
-              "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjQsImV4cCI6MTY5MjM0MDI3MH0.Fi5LzkOfW3S1A8719qYRiDSoPw6KqmZDSZxCATXyyq0",
+              "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjQsImV4cCI6MTY5MjM4NTQ2Mn0.MoOaZhSAZc10NsexbRgRJuzhp08b0xnuh-nFY-hajXo",
           },
         });
         let fetchedList = response.data;
@@ -62,7 +61,6 @@ function FriendListPage() {
       </>
     );
   }
-
 }
 
 export default FriendListPage;

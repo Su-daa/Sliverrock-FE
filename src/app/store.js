@@ -22,6 +22,17 @@ let loginData = createSlice({
     },
   },
 });
+let myInfo = createSlice({
+  name: "myInfo",
+  initialState: {},
+  reducers: {
+    setMyInfo: (state, action) => {
+      let now = action.payload;
+      state = now;
+      return state;
+    },
+  },
+});
 
 //근처 친구 목록(홈페이지)
 let nearUserList = createSlice({
@@ -106,6 +117,7 @@ let club = createSlice({
 
 export let { setLoginData } = loginData.actions;
 export let { setNearUserList } = nearUserList.actions;
+export let { setMyInfo } = myInfo.actions;
 export const { setFriendRequestList } = friendRequestList.actions;
 export const { setFriendList } = friendList.actions;
 export const { setClub } = club.actions;
@@ -119,5 +131,6 @@ export default configureStore({
     friendList: friendList.reducer,
     club: club.reducer,
     loginData: loginData.reducer,
+    myInfo: myInfo.reducer,
   },
 });

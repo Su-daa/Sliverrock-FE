@@ -47,7 +47,7 @@ function FriendRequestPage() {
         {
           headers: {
             Authorization:
-              "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjQsImV4cCI6MTY5MjM3MDUwMH0.htSah0331mHe3HGfR2_bocxQYLa3HhnysMeMUMeFzD0",
+              "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjQsImV4cCI6MTY5MjM4NTQ2Mn0.MoOaZhSAZc10NsexbRgRJuzhp08b0xnuh-nFY-hajXo",
           },
         }
       );
@@ -90,17 +90,17 @@ function FriendRequestPage() {
     setActivePageIndex(newPageIndex);
   };
 
-  if(friendRequestList.length===0){
-    return(
+  if (friendRequestList.length === 0) {
+    return (
       <>
-      <h1 className="title">{`${friendRequestList.length}명의 실버락 요청이 있어요`}</h1>
-      <NoFriends />
-      <h1 className="text">친구 요청이 없어요!</h1>
-      <MatchingTab />
-      <Tab />
+        <h1 className="title">{`${friendRequestList.length}명의 실버락 요청이 있어요`}</h1>
+        <NoFriends />
+        <h1 className="text">친구 요청이 없어요!</h1>
+        <MatchingTab />
+        <Tab />
       </>
-    )
-  }else{
+    );
+  } else {
     return (
       <>
         <h1 className="title">{`${friendRequestList.length}명의 실버락 요청이 있어요`}</h1>
@@ -142,7 +142,6 @@ function FriendRequestPage() {
       </>
     );
   }
-  
 }
 
 export default FriendRequestPage;
