@@ -8,6 +8,7 @@ import axios from "axios";
 import { setFriendList } from "../app/store";
 import NoFriends from "../components/NoFriends.js";
 
+
 function FriendListPage() {
   const friendListData = useSelector((state) => state.friendList);
   const dispatch = useDispatch();
@@ -61,6 +62,7 @@ function FriendListPage() {
       </>
     );
   }
+
 }
 
 export default FriendListPage;

@@ -36,6 +36,17 @@ let nearUserList = createSlice({
   },
 });
 
+//친구신청보낸 userId 저장
+const friendRequestedUserId = createSlice({
+  name: "friendRequests",
+  initialState: [],
+  reducers: {
+    addFriendRequest: (state, action) => {
+      return [...state, action.payload];
+    },
+  },
+});
+
 //친구 요청 목록
 let friendRequestList = createSlice({
   name: "friendRequestList",
@@ -98,10 +109,12 @@ export let { setNearUserList } = nearUserList.actions;
 export const { setFriendRequestList } = friendRequestList.actions;
 export const { setFriendList } = friendList.actions;
 export const { setClub } = club.actions;
+export const { addFriendRequest } = friendRequestedUserId.actions;
 
 export default configureStore({
   reducer: {
     nearUserList: nearUserList.reducer,
+    friendRequestedUserId: friendRequestedUserId.reducer,
     friendRequestList: friendRequestList.reducer,
     friendList: friendList.reducer,
     club: club.reducer,

@@ -7,11 +7,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { setFriendRequestList } from "../app/store";
 import Carousel from "react-material-ui-carousel";
 import axios from "axios";
-import NoFriends from "../components/NoFriends.js";
+import NoFriends from "../components/NoFriends";
 
 function FriendRequestPage() {
   let friendRequestList = useSelector((state) => state.friendRequestList);
   const [activePageIndex, setActivePageIndex] = useState(0); // 현재 페이지 인덱스
+  const [isLoading, setIsLoading] = useState(true); // 로딩 상태 추가
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -29,6 +30,8 @@ function FriendRequestPage() {
         dispatch(setFriendRequestList(fetchedList.result));
       } catch (error) {
         console.log(error);
+      } finally {
+        setIsLoading(false); // 데이터 로딩이 완료되면 로딩 상태를 false로 설정
       }
     };
 
@@ -87,53 +90,59 @@ function FriendRequestPage() {
     setActivePageIndex(newPageIndex);
   };
 
-  if (friendRequestList.length === 0) {
-    return (
+  if(friendRequestList.length===0){
+    return(
       <>
-        <h1 className="title">{`${friendRequestList.length}명의 실버락 요청이 왔어요`}</h1>
-        <NoFriends />
-        <h1 className="text">친구 요청이 없어요!</h1>
-        <MatchingTab />
-        <Tab />
+      <h1 className="title">{`${friendRequestList.length}명의 실버락 요청이 있어요`}</h1>
+      <NoFriends />
+      <h1 className="text">친구 요청이 없어요!</h1>
+      <MatchingTab />
+      <Tab />
       </>
-    );
-  } else {
+    )
+  }else{
     return (
       <>
-        <h1 className="title">{`${friendRequestList.length}명의 실버락이 있어요`}</h1>
-        <div className="profile-box">
-          <Carousel onChange={(newIndex) => handleCarouselChange(newIndex)}>
-            {friendRequestList.map((user) => {
-              return (
-                <>
-                  <div key={user.matchingId}>
-                    <Profile user={user} />
-                    <div className="btn-container">
-                      <button
-                        className="custom-btn btn-11"
-                        onClick={() => matchingAccept(user.matchingId)}
-                      >
-                        수락
-                      </button>
-                      <button
-                        className="custom-btn btn-11"
-                        onClick={() => matchingReject(user.matchingId)}
-                      >
-                        거절
-                      </button>
+        <h1 className="title">{`${friendRequestList.length}명의 실버락 요청이 있어요`}</h1>
+        {isLoading ? (
+          <div className="loading-box">
+            <h2 className="loading">로딩중...</h2>
+          </div>
+        ) : (
+          <div className="profile-box">
+            <Carousel onChange={(newIndex) => handleCarouselChange(newIndex)}>
+              {friendRequestList.map((user) => {
+                return (
+                  <>
+                    <div key={user.matchingId}>
+                      <Profile user={user} />
+                      <div className="btn-container">
+                        <button
+                          className="custom-btn btn-11"
+                          onClick={() => matchingAccept(user.matchingId)}
+                        >
+                          수락
+                        </button>
+                        <button
+                          className="custom-btn btn-11"
+                          onClick={() => matchingReject(user.matchingId)}
+                        >
+                          거절
+                        </button>
+                      </div>
                     </div>
-                  </div>
-                </>
-              );
-            })}
-          </Carousel>
-        </div>
-
+                  </>
+                );
+              })}
+            </Carousel>
+          </div>
+        )}
         <MatchingTab />
         <Tab />
       </>
     );
   }
+  
 }
 
 export default FriendRequestPage;

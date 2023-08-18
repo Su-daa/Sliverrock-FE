@@ -2,6 +2,11 @@
   margin-top: 20px;
   margin-left: 20px;
 }
+.loading-box {
+  display: flex;
+  justify-content: center;
+  padding-top: 40px;
+}
 .btn-container {
   display: flex;
   justify-content: center;
