@@ -83,6 +83,7 @@ function HomePage() {
                   <button
                     className="custom-btn btn-11"
                     onClick={() => handleFriendRequest(user.id)}
+                    disabled={isFriendRequested}
                   >
                     {isFriendRequested ? "신청완료" : "친구신청"}
                   </button>
