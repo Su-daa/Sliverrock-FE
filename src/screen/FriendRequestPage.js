@@ -11,6 +11,7 @@ import axios from "axios";
 function FriendRequestPage() {
   let friendRequestList = useSelector((state) => state.friendRequestList);
   const [activePageIndex, setActivePageIndex] = useState(0); // 현재 페이지 인덱스
+  const [isLoading, setIsLoading] = useState(true); // 로딩 상태 추가
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -28,6 +29,8 @@ function FriendRequestPage() {
         dispatch(setFriendRequestList(fetchedList.result));
       } catch (error) {
         console.log(error);
+      } finally {
+        setIsLoading(false); // 데이터 로딩이 완료되면 로딩 상태를 false로 설정
       }
     };
 
@@ -89,34 +92,39 @@ function FriendRequestPage() {
   return (
     <>
       <h1 className="title">{`${friendRequestList.length}명의 실버락이 있어요`}</h1>
-      <div className="profile-box">
-        <Carousel onChange={(newIndex) => handleCarouselChange(newIndex)}>
-          {friendRequestList.map((user) => {
-            return (
-              <>
-                <div key={user.matchingId}>
-                  <Profile user={user} />
-                  <div className="btn-container">
-                    <button
-                      className="custom-btn btn-11"
-                      onClick={() => matchingAccept(user.matchingId)}
-                    >
-                      수락
-                    </button>
-                    <button
-                      className="custom-btn btn-11"
-                      onClick={() => matchingReject(user.matchingId)}
-                    >
-                      거절
-                    </button>
+      {isLoading ? (
+        <div className="loading-box">
+          <h2 className="loading">로딩중...</h2>
+        </div>
+      ) : (
+        <div className="profile-box">
+          <Carousel onChange={(newIndex) => handleCarouselChange(newIndex)}>
+            {friendRequestList.map((user) => {
+              return (
+                <>
+                  <div key={user.matchingId}>
+                    <Profile user={user} />
+                    <div className="btn-container">
+                      <button
+                        className="custom-btn btn-11"
+                        onClick={() => matchingAccept(user.matchingId)}
+                      >
+                        수락
+                      </button>
+                      <button
+                        className="custom-btn btn-11"
+                        onClick={() => matchingReject(user.matchingId)}
+                      >
+                        거절
+                      </button>
+                    </div>
                   </div>
-                </div>
-              </>
-            );
-          })}
-        </Carousel>
-      </div>
-
+                </>
+              );
+            })}
+          </Carousel>
+        </div>
+      )}
       <MatchingTab />
       <Tab />
     </>

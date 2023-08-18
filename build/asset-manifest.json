@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/static/css/main.c732c973.css",
+    "main.js": "/static/js/main.2a336c3f.js",
+    "static/media/club.jpg": "/static/media/club.3ca3598020d6339c87e3.jpg",
+    "static/media/club_tennis.jpg": "/static/media/club_tennis.eabeb18cdfc9ba5fba3b.jpg",
+    "static/media/club_badminton.jpg": "/static/media/club_badminton.2052487285d30bbbe082.jpg",
+    "static/media/SUITE-Variable.ttf": "/static/media/SUITE-Variable.f7b4edbae4ae1bf9cb2d.ttf",
+    "index.html": "/index.html",
+    "main.c732c973.css.map": "/static/css/main.c732c973.css.map",
+    "main.2a336c3f.js.map": "/static/js/main.2a336c3f.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.c732c973.css",
+    "static/js/main.2a336c3f.js"
+  ]
+}
