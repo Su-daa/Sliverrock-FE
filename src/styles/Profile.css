@@ -1,0 +1,20 @@
+.box-container {
+  margin-top: 20px;
+}
+.profile-img-box {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+.profile-img {
+  width: 300px;
+  height: 300px;
+  border-radius: 20px;
+}
+.profile-info {
+  margin-left: 40px;
+  margin-bottom: 10px;
+}
+.profile-info-text {
+  margin-bottom: 15px;
+}
